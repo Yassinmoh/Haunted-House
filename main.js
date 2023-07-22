@@ -21,11 +21,21 @@ const scene = new THREE.Scene()
 const textureLoader = new THREE.TextureLoader()
 
 /**
- * House
+ * *************** House ***************
  */
 
+const house = new THREE.Group()
+scene.add(house)
 
-// Floor
+// Walls:
+const walls =new THREE.Mesh(
+    new THREE.BoxGeometry(4,2.5,4),
+    new THREE.MeshStandardMaterial({color:'#ac8e82'})
+)
+walls.position.y=(walls.geometry.parameters.height )/ 2
+house.add(walls)
+
+// *************** Floor ***************
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(20, 20),
     new THREE.MeshStandardMaterial({ color: '#a9c388' })
@@ -35,7 +45,7 @@ floor.position.y = 0
 scene.add(floor)
 
 /**
- * Lights
+ * *************** Lights ***************
  */
 // Ambient light
 const ambientLight = new THREE.AmbientLight('#ffffff', 0.5)
@@ -75,7 +85,7 @@ window.addEventListener('resize', () =>
 })
 
 /**
- * Camera
+ * *************** Camera ***************
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
@@ -89,7 +99,7 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
 /**
- * Renderer
+ * *************** Renderer ***************
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
@@ -98,7 +108,7 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 /**
- * Animate
+ * *************** Animate ***************
  */
 const clock = new THREE.Clock()
 
