@@ -22,7 +22,7 @@ scene.fog= fog
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-
+//door Textures
 const doorColorTexture =textureLoader.load('/textures/door/color.jpg')
 const doorAlphaTexture =textureLoader.load('/textures/door/alpha.jpg')
 const doorAmbientOcclusionTexture =textureLoader.load('/textures/door/ambientOcclusion.jpg')
@@ -31,7 +31,11 @@ const doorNormalTexture =textureLoader.load('/textures/door/normal.jpg')
 const doorMetalnessTexture =textureLoader.load('/textures/door/metalness.jpg')
 const doorRoughnessTexture =textureLoader.load('/textures/door/roughness.jpg')
 
-
+//wall Textures
+const bricksColorTexture =textureLoader.load('/textures/bricks/color.jpg') 
+const bricksNormalTexture =textureLoader.load('/textures/bricks/normal.jpg') 
+const bricksRoughnessTexture =textureLoader.load('/textures/bricks/roughness.jpg') 
+const bricksAmbientOcclusionTexture =textureLoader.load('/textures/bricks/ambientOcclusion.jpg') 
 /**
  * *************** House ***************
  */
@@ -42,9 +46,15 @@ scene.add(house)
 // Walls:
 const walls = new THREE.Mesh(
     new THREE.BoxGeometry(4, 2.5, 4),
-    new THREE.MeshStandardMaterial({ color: '#ac8e82' })
+    new THREE.MeshStandardMaterial({ 
+        map:bricksColorTexture,
+        aoMap:bricksAmbientOcclusionTexture,
+        roughnessMap:bricksRoughnessTexture,
+        normalMap:bricksNormalTexture
+    })
 )
 walls.position.y = (walls.geometry.parameters.height) / 2
+walls.geometry.setAttribute('uv2',new THREE.Float32BufferAttribute(walls.geometry.attributes.uv.array,2))
 house.add(walls)
 
 // Roof:
